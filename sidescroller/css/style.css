@@ -1,6 +1,6 @@
 body {
   overflow: hidden;
-  background: skyblue;
+  background: skyblue url("../res/gridcell-blue.png") repeat;
 }
 
 #player {
@@ -25,7 +25,7 @@ body {
 }
 
 .ground {
-  background-color: greenyellow;
+  background: greenyellow url("../res/bricks-green.png") repeat;
   height: 10vmin;
   width: 100vw;
   position: absolute;
@@ -34,7 +34,7 @@ body {
 }
 
 .obstacle {
-  background-color: orange;
+  background: orange url("../res/lava.png") repeat;
   height: 5vmin;
   width: 10vmin;
   position: absolute;
@@ -69,7 +69,7 @@ body {
   left: 0;
   top: 0;
   animation: curtain-drop 1s ease-out;
-  animation-play-state: paused; 
+  animation-play-state: paused;
   z-index: 3;
   text-align: center;
   margin: auto;
