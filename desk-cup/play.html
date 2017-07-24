@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>DeskCup</title>
+  <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+  <canvas id="gameCanvas"></canvas>
+  <div id="lefthud">Loading...</div>
+  <div id="over">
+    <div class="overcontent">
+      <h1>Paused</h1>
+      <button onclick="paused = false; document.getElementById('over').style.height = '0';">Resume</button>
+      <br>
+      <button onclick="if (confirm('Are you sure you want to exit?')) location.href = './';">Exit</button>
+    </div>
+  </div>
+  <script src="./scripts/three.min.js"></script>
+  <script src="./scripts/app.js"></script>
+  <script src="./scripts/touch.js"></script>
+</body>
+</html>
