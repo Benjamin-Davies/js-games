@@ -1,6 +1,6 @@
 # Desk Cup
 
-[**CLICK HERE TO PLAY**](https://benjamin-davies.github.io/desk-cup/play.html)
+[**CLICK HERE TO PLAY**](./play.html)
 
 Desk Cup is a game where you are a sphere that jumps over cubes. It is very similar to temple run (kind of).
 
