@@ -38,7 +38,13 @@ export default class Game {
     this.evil = new Ninja(w - 120, 20);
 
     document.addEventListener('keydown', ev => {
-      if (this.gameFinished()) return;
+      if (this.gameFinished()) {
+        if (ev.key === ' ') {
+          this.good = new Ninja(20, 20);
+          this.evil = new Ninja(w - 120, 20);
+        }
+        return;
+      }
 
       switch (ev.key.toLowerCase()) {
         case 'w':
@@ -140,6 +146,9 @@ export default class Game {
         ctx.fillStyle = 'red';
         ctx.fillText('Evil has won', w / 2, h / 2);
       }
+      ctx.font = '32px sans-serif';
+      ctx.fillStyle = 'black';
+      ctx.fillText('Press the spacebar to play again', w / 2, h * 2 / 3);
     }
   }
 }
