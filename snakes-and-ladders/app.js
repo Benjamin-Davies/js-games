@@ -60,7 +60,7 @@ class Counter {
    * Simulate rolling a dice and move that many squares
    */
   roll() {
-    yellowCounter.mov += Math.floor(6 * Math.random() + 1);
+    this.mov += Math.floor(6 * Math.random() + 1);
   }
 }
 
