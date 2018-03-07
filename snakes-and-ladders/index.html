@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Snakes and Ladders</title>
+
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet" />
+
+  <style>
+    main {
+      padding: 2em 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="nav-wrapper green">
+      <a href="#" class="brand-logo center">
+        Snakes &amp; Ladders</a>
+      <ul class="left hide-on-small">
+        <li>
+          <a href="../">JS-Games</a>
+        </li>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="https://github.com/Benjamin-Davies/js-games/tree/master/snakes-and-ladders">Code</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="center">
+      <canvas id="board"></canvas>
+      <p>
+        <button class="btn waves-effect waves-light yellow black-text" id="roll1">Yellow Roll</button>
+        <button class="btn waves-effect waves-light blue" id="roll2">Blue Roll</button>
+      </p>
+      <p>
+        <button class="btn waves-effect waves-light green" id="replay">
+          <i class="material-icons right">replay</i>play again</button>
+      </p>
+    </div>
+    <p>
+      Snakes and ladders is a game where two or more players race to reach the finish.
+    </p>
+    <p>
+      On their turn, each player rolls the die. They then move forward by that number of squares. If they land on the head of a
+      snake at the end of their turn then they slide down to the tail, and if they land at the foot of a ladder then they
+      travel up that ladder.
+    </p>
+  </main>
+
+  <script src="./app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+</body>
+
+</html>
