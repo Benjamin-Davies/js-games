@@ -98,7 +98,7 @@ const draw = () => {
 
   const currentTime = performance.now();
   const deltaTime = currentTime - lastTime;
-  const deltaPos = deltaTime / 1000 / 100;
+  const deltaPos = deltaTime / 1000 * 2;
 
   yellowCounter.updatePos(deltaPos);
   blueCounter.updatePos(deltaPos);
@@ -123,6 +123,8 @@ const draw = () => {
   drawCounter(
     yellowCounter.pos + (blueCounter.pos === yellowCounter.pos ? 0.1 : 0)
   );
+
+  lastTime = currentTime;
 
   ctx.restore();
 };
