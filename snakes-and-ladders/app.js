@@ -98,7 +98,7 @@ const draw = () => {
 
   const currentTime = performance.now();
   const deltaTime = currentTime - lastTime;
-  const deltaPos = deltaTime / 1000 * 2;
+  const deltaPos = deltaTime / 1000 * 5;
 
   yellowCounter.updatePos(deltaPos);
   blueCounter.updatePos(deltaPos);
