@@ -1,0 +1,31 @@
+body {
+  font-family: sans-serif;
+}
+
+header,
+footer {
+  text-align: center;
+  margin: 72px 0;
+}
+
+header {
+  font-size: 2rem;
+}
+
+footer {
+  margin-bottom: 0;
+}
+
+ul {
+  list-style: none;
+}
+ul li {
+  display: inline-block;
+  margin: 0 0.5em;
+}
+
+.container {
+  width: 80%;
+  max-width: 1024px;
+  margin: 10px auto;
+}
