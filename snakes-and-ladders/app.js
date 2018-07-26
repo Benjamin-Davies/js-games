@@ -26,7 +26,7 @@ const getCellPos = n => {
 class Counter {
   /**
    * Create a new counter
-   * @param {string} color The color of the counter
+   * @param {'yellow' | 'blue'} color The color of the counter
    */
   constructor(color) {
     this.color = color;
@@ -60,12 +60,16 @@ class Counter {
    * Simulate rolling a dice and move that many squares
    */
   roll() {
+    if (this.color !== turn) return;
+    turn = '';
+
     this.mov += Math.floor(6 * Math.random() + 1);
   }
 }
 
-let yellowCounter = new Counter(yellow),
-  blueCounter = new Counter(blue);
+let yellowCounter = new Counter('yellow'),
+  blueCounter = new Counter('blue');
+let turn = 'yellow';
 
 /**
  * @type {HTMLCanvasElement}

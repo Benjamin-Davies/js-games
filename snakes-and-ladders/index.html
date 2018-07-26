@@ -17,6 +17,11 @@
     main {
       padding: 2em 0;
     }
+
+    #info {
+      font-weight: bold;
+      font-size: 1.5em;
+    }
   </style>
 </head>
 
@@ -43,6 +48,9 @@
   <main class="container">
     <div class="center">
       <canvas id="board"></canvas>
+      <p>
+        <span id="info">Loading</span>
+      </p>
       <p>
         <button class="btn waves-effect waves-light yellow black-text" id="roll1">Yellow Roll</button>
         <button class="btn waves-effect waves-light blue" id="roll2">Blue Roll</button>
