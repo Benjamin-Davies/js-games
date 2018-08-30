@@ -5,5 +5,5 @@ document.getElementById('container').appendChild(canvas);
 
 const ctx = canvas.getContext('2d');
 
-const game = new Minesweeper(ctx, 100, 100, 10);
+const game = new Minesweeper(ctx, 20, 20, 40);
 game.start();
