@@ -92,31 +92,60 @@ class Minesweeper {
   }
 
   /**
-   * @param {number} x
-   * @param {number} y
+   * @param {number} startX
+   * @param {number} startY
    */
-  uncover(x, y) {
-    const i = this.index(x, y);
-    if (this.mines[i]) {
-      console.log('Hit a mine');
-      return;
-    } else if (this.tiles[i] < 0) {
-      let neighbooringMines = 0;
+  uncover(startX, startY) {
+    const queue = [[startX, startY]];
 
-      for (let offX = -1; offX <= 1; offX++) {
-        for (let offY = -1; offY <= 1; offY++) {
-          const newX = x + offX;
-          const newY = y + offY;
-          if (newX >= 0 && newX < this.cols && newY >= 0 && newY < this.rows) {
-            if (this.mines[this.index(newX, newY)]) {
-              neighbooringMines++;
+    while (queue.length > 0) {
+      const [x, y] = queue.pop();
+      const i = this.index(x, y);
+
+      if (this.mines[i]) {
+        console.log('Hit a mine');
+        return;
+      } else if (this.tiles[i] < 0) {
+        let neighbooringMines = 0;
+
+        for (let offX = -1; offX <= 1; offX++) {
+          for (let offY = -1; offY <= 1; offY++) {
+            const newX = x + offX;
+            const newY = y + offY;
+            if (
+              newX >= 0 &&
+              newX < this.cols &&
+              newY >= 0 &&
+              newY < this.rows
+            ) {
+              if (this.mines[this.index(newX, newY)]) {
+                neighbooringMines++;
+              }
+            }
+          }
+        }
+
+        this.tiles[i] = neighbooringMines;
+
+        if (neighbooringMines === 0) {
+          for (let offX = -1; offX <= 1; offX++) {
+            for (let offY = -1; offY <= 1; offY++) {
+              const newX = x + offX;
+              const newY = y + offY;
+              if (
+                newX >= 0 &&
+                newX < this.cols &&
+                newY >= 0 &&
+                newY < this.rows
+              ) {
+                if (this.tiles[this.index(newX, newY)] < 0) {
+                  queue.unshift([newX, newY]);
+                }
+              }
             }
           }
         }
       }
-
-      console.log(neighbooringMines);
-      this.tiles[i] = neighbooringMines;
     }
   }
 
