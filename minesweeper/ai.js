@@ -13,7 +13,7 @@ class AI {
   }
 
   step() {
-    if (this.flag() || this.clickRandomly()) {
+    if (this.flag() || this.uncover() || this.clickRandomly()) {
       this.game.draw();
     }
   }
@@ -26,7 +26,7 @@ class AI {
         const i = game.index(x, y);
         const value = game.tiles[i];
 
-        if (value >= 0) {
+        if (value > 0) {
           let neighboors = 0;
 
           for (let offX = -1; offX <= 1; offX++) {
@@ -59,6 +59,60 @@ class AI {
                 ) {
                   if (game.tiles[game.index(newX, newY)] === -1) {
                     game.toggleFlag(newX, newY);
+                    return true;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
+  uncover() {
+    const game = this.game;
+
+    for (let x = 0; x < game.cols; x++) {
+      for (let y = 0; y < game.rows; y++) {
+        const i = game.index(x, y);
+        const value = game.tiles[i];
+
+        if (value > 0) {
+          let neighboors = 0;
+
+          for (let offX = -1; offX <= 1; offX++) {
+            for (let offY = -1; offY <= 1; offY++) {
+              const newX = x + offX;
+              const newY = y + offY;
+              if (
+                newX >= 0 &&
+                newX < game.cols &&
+                newY >= 0 &&
+                newY < game.rows
+              ) {
+                if (game.tiles[game.index(newX, newY)] === -2) {
+                  neighboors++;
+                }
+              }
+            }
+          }
+
+          if (neighboors >= value) {
+            for (let offX = -1; offX <= 1; offX++) {
+              for (let offY = -1; offY <= 1; offY++) {
+                const newX = x + offX;
+                const newY = y + offY;
+                if (
+                  newX >= 0 &&
+                  newX < game.cols &&
+                  newY >= 0 &&
+                  newY < game.rows
+                ) {
+                  if (game.tiles[game.index(newX, newY)] === -1) {
+                    game.uncover(newX, newY);
                     return true;
                   }
                 }
