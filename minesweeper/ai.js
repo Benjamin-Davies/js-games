@@ -10,10 +10,12 @@ class AI {
   }
 
   start() {
-    setInterval(this.step, 100);
+    this.step();
   }
 
   step() {
+    requestAnimationFrame(this.step);
+
     if (
       !this.game.gameOver &&
       (this.flag() || this.uncover() || this.clickRandomly())

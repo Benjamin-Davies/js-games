@@ -2,15 +2,9 @@ class Minesweeper {
   /**
    * Create a new instance of the minesweeper game
    * @param {CanvasRenderingContext2D} ctx The context to draw onto
-   * @param {number} cols The number of columns
-   * @param {number} rows The number of rows
-   * @param {number} mineCount The number of mines
    */
-  constructor(ctx, cols, rows, mineCount) {
+  constructor(ctx) {
     this.ctx = ctx;
-    this.cols = cols;
-    this.rows = rows;
-    this.mineCount = mineCount;
 
     this.onMouseDown = this.onMouseDown.bind(this);
   }
@@ -26,6 +20,10 @@ class Minesweeper {
   }
 
   reset() {
+    this.cols = Math.floor(window.innerWidth * 0.05);
+    this.rows = Math.floor(window.innerHeight * 0.05);
+    this.mineCount = Math.floor(this.rows * this.cols * 0.1);
+
     this.mines = Array(this.cols * this.rows).fill(false);
     let n = 0;
     while (n < this.mineCount) {
@@ -44,7 +42,12 @@ class Minesweeper {
     const ctx = this.ctx;
     const cellSize = this.cellSize;
 
+    ctx.canvas.width = window.innerWidth;
+    ctx.canvas.height = window.innerHeight;
+
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.fillStyle = 'lightgrey';
+    ctx.strokeStyle = 'white';
 
     if (this.gameOver) {
       ctx.save();
@@ -66,7 +69,7 @@ class Minesweeper {
     } else {
       ctx.save();
       ctx.scale(cellSize, cellSize);
-      ctx.lineWidth = 0.1;
+      ctx.lineWidth = 0.05;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.font = '1px monospace';
@@ -82,8 +85,9 @@ class Minesweeper {
           switch (value) {
             case -2:
               ctx.fillStyle = 'red';
-              ctx.fillRect(0, 0, 1, 1);
-              ctx.strokeRect(0, 0, 1, 1);
+              ctx.beginPath();
+              ctx.arc(0.5, 0.5, 0.3, 0, 2 * Math.PI);
+              ctx.fill();
               break;
             case -1:
               ctx.strokeRect(0, 0, 1, 1);
