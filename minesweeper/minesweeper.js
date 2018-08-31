@@ -16,6 +16,16 @@ class Minesweeper {
   }
 
   start() {
+    const canvas = this.ctx.canvas;
+    canvas.addEventListener('mousedown', this.onMouseDown);
+    canvas.addEventListener('mouseup', ev => ev.preventDefault());
+    canvas.addEventListener('contextmenu', ev => ev.preventDefault());
+
+    this.reset();
+    this.draw();
+  }
+
+  reset() {
     this.mines = Array(this.cols * this.rows).fill(false);
     let n = 0;
     while (n < this.mineCount) {
@@ -27,13 +37,7 @@ class Minesweeper {
     }
 
     this.tiles = Array(this.cols * this.rows).fill(-1);
-
-    const canvas = this.ctx.canvas;
-    canvas.addEventListener('mousedown', this.onMouseDown);
-    canvas.addEventListener('mouseup', ev => ev.preventDefault());
-    canvas.addEventListener('contextmenu', ev => ev.preventDefault());
-
-    this.draw();
+    this.gameOver = false;
   }
 
   draw() {
@@ -42,42 +46,61 @@ class Minesweeper {
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-    ctx.save();
-    ctx.scale(cellSize, cellSize);
-    ctx.lineWidth = 0.1;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.font = '1px monospace';
+    if (this.gameOver) {
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '32px sans-serif';
+      ctx.fillText(
+        'Game Over!',
+        this.ctx.canvas.width * 0.5,
+        this.ctx.canvas.height * 0.5
+      );
+      ctx.font = '24px sans-serif';
+      ctx.fillText(
+        'Click to play again.',
+        this.ctx.canvas.width * 0.5,
+        this.ctx.canvas.height * 0.75
+      );
+      ctx.restore();
+    } else {
+      ctx.save();
+      ctx.scale(cellSize, cellSize);
+      ctx.lineWidth = 0.1;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '1px monospace';
 
-    for (let x = 0; x < this.cols; x++) {
-      for (let y = 0; y < this.rows; y++) {
-        const i = this.index(x, y);
-        const value = this.tiles[i];
+      for (let x = 0; x < this.cols; x++) {
+        for (let y = 0; y < this.rows; y++) {
+          const i = this.index(x, y);
+          const value = this.tiles[i];
 
-        ctx.save();
-        ctx.translate(x, y);
+          ctx.save();
+          ctx.translate(x, y);
 
-        switch (value) {
-          case -2:
-            ctx.fillStyle = 'red';
-            ctx.fillRect(0, 0, 1, 1);
-            ctx.strokeRect(0, 0, 1, 1);
-            break;
-          case -1:
-            ctx.strokeRect(0, 0, 1, 1);
-            break;
-          case 0:
-            break;
-          default:
-            ctx.fillText(value, 0.5, 0.5);
-            break;
+          switch (value) {
+            case -2:
+              ctx.fillStyle = 'red';
+              ctx.fillRect(0, 0, 1, 1);
+              ctx.strokeRect(0, 0, 1, 1);
+              break;
+            case -1:
+              ctx.strokeRect(0, 0, 1, 1);
+              break;
+            case 0:
+              break;
+            default:
+              ctx.fillText(value, 0.5, 0.5);
+              break;
+          }
+
+          ctx.restore();
         }
-
-        ctx.restore();
       }
-    }
 
-    ctx.restore();
+      ctx.restore();
+    }
   }
 
   /**
@@ -86,22 +109,27 @@ class Minesweeper {
   onMouseDown(ev) {
     ev.preventDefault();
 
-    const canvas = this.ctx.canvas;
-    const pixelX = ev.clientX - canvas.offsetLeft;
-    const pixelY = ev.clientY - canvas.offsetTop;
+    if (this.gameOver) {
+      this.reset();
+    } else {
+      const canvas = this.ctx.canvas;
+      const pixelX = ev.clientX - canvas.offsetLeft;
+      const pixelY = ev.clientY - canvas.offsetTop;
 
-    const cellSize = this.cellSize;
-    const x = Math.floor(pixelX / cellSize);
-    const y = Math.floor(pixelY / cellSize);
+      const cellSize = this.cellSize;
+      const x = Math.floor(pixelX / cellSize);
+      const y = Math.floor(pixelY / cellSize);
 
-    switch (ev.button) {
-      case 0:
-        this.uncover(x, y);
-        break;
-      case 2:
-        this.toggleFlag(x, y);
-        break;
+      switch (ev.button) {
+        case 0:
+          this.uncover(x, y);
+          break;
+        case 2:
+          this.toggleFlag(x, y);
+          break;
+      }
     }
+
     this.draw();
   }
 
@@ -117,7 +145,7 @@ class Minesweeper {
       const i = this.index(x, y);
 
       if (this.mines[i]) {
-        console.log('Hit a mine');
+        this.gameOver = true;
         return;
       } else if (this.tiles[i] < 0) {
         let neighbooringMines = 0;
