@@ -4,16 +4,13 @@ body {
 
 header,
 footer {
+  box-sizing: border-box;
   text-align: center;
-  margin: 72px 0;
+  padding: 0.5rem;
 }
 
 header {
-  font-size: 2rem;
-}
-
-footer {
-  margin-bottom: 0;
+  font-size: 1.5rem;
 }
 
 ul {
