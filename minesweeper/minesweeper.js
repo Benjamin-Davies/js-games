@@ -30,6 +30,8 @@ class Minesweeper {
 
     const canvas = this.ctx.canvas;
     canvas.addEventListener('mousedown', this.onMouseDown);
+    canvas.addEventListener('mouseup', ev => ev.preventDefault());
+    canvas.addEventListener('contextmenu', ev => ev.preventDefault());
 
     this.draw();
   }
@@ -56,6 +58,11 @@ class Minesweeper {
         ctx.translate(x, y);
 
         switch (value) {
+          case -2:
+            ctx.fillStyle = 'red';
+            ctx.fillRect(0, 0, 1, 1);
+            ctx.strokeRect(0, 0, 1, 1);
+            break;
           case -1:
             ctx.strokeRect(0, 0, 1, 1);
             break;
@@ -77,7 +84,7 @@ class Minesweeper {
    * @param {MouseEvent} ev
    */
   onMouseDown(ev) {
-    ev.preventDefault;
+    ev.preventDefault();
 
     const canvas = this.ctx.canvas;
     const pixelX = ev.clientX - canvas.offsetLeft;
@@ -87,7 +94,14 @@ class Minesweeper {
     const x = Math.floor(pixelX / cellSize);
     const y = Math.floor(pixelY / cellSize);
 
-    this.uncover(x, y);
+    switch (ev.button) {
+      case 0:
+        this.uncover(x, y);
+        break;
+      case 2:
+        this.toggleFlag(x, y);
+        break;
+    }
     this.draw();
   }
 
@@ -145,6 +159,22 @@ class Minesweeper {
             }
           }
         }
+      }
+    }
+  }
+
+  /**
+   * @param {number} x
+   * @param {number} y
+   */
+  toggleFlag(x, y) {
+    const i = this.index(x, y);
+
+    if (this.tiles[i] < 0) {
+      if (this.tiles[i] === -1) {
+        this.tiles[i] = -2;
+      } else {
+        this.tiles[i] = -1;
       }
     }
   }
