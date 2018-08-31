@@ -13,8 +13,13 @@ class AI {
   }
 
   step() {
-    if (this.flag() || this.uncover() || this.clickRandomly()) {
+    if (
+      !this.game.gameOver &&
+      (this.flag() || this.uncover() || this.clickRandomly())
+    ) {
       this.game.draw();
+    } else {
+      game.reset();
     }
   }
 
