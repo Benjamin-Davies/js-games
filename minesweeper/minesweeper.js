@@ -109,7 +109,7 @@ class Minesweeper {
   onMouseDown(ev) {
     ev.preventDefault();
 
-    if (this.gameOver) {
+    if (this.gameOver || aiOnly) {
       this.reset();
     } else {
       const canvas = this.ctx.canvas;
