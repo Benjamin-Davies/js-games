@@ -13,6 +13,12 @@ class AI {
   }
 
   step() {
+    if (this.flag() || this.clickRandomly()) {
+      this.game.draw();
+    }
+  }
+
+  flag() {
     const game = this.game;
 
     for (let x = 0; x < game.cols; x++) {
@@ -53,8 +59,7 @@ class AI {
                 ) {
                   if (game.tiles[game.index(newX, newY)] === -1) {
                     game.toggleFlag(newX, newY);
-                    game.draw();
-                    return;
+                    return true;
                   }
                 }
               }
@@ -63,6 +68,12 @@ class AI {
         }
       }
     }
+
+    return false;
+  }
+
+  clickRandomly() {
+    const game = this.game;
 
     /** @type{[number, number][]} */
     const empty = [];
@@ -76,11 +87,11 @@ class AI {
       }
     }
 
-    if (empty.length <= 0) return;
+    if (empty.length <= 0) return false;
 
     const chosen = empty[Math.floor(empty.length * Math.random())];
     game.uncover(...chosen);
 
-    game.draw();
+    return true;
   }
 }
