@@ -1,3 +1,6 @@
+/// <reference path="./minesweeper.js" />
+/// <reference path="./ai.js" />
+
 const canvas = document.createElement('canvas');
 canvas.width = 400;
 canvas.height = 400;
