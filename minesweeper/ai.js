@@ -1,3 +1,4 @@
+/// <reference path="./minesweeper.js" />
 class AI {
   /**
    * @param {Minesweeper} game
@@ -19,7 +20,7 @@ class AI {
     ) {
       this.game.draw();
     } else {
-      game.reset();
+      this.game.reset();
     }
   }
 
