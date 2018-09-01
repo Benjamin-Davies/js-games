@@ -104,3 +104,11 @@ footer {
 .project:hover a h1 {
   background: transparent;
 }
+
+@media (max-width: 600px) {
+  .project {
+    width: 50vmin;
+    height: 50vmin;
+    transform: none;
+  }
+}
