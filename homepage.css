@@ -1,0 +1,97 @@
+body {
+  background: radial-gradient(#333, black);
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+  font-family: 'Source Sans Pro', sans-serif;
+  min-height: 100vh;
+}
+
+a {
+  color: #ddd;
+}
+
+header h1 {
+  color: #ddd;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+}
+
+header a:hover {
+  text-shadow: 0 0 10px lightgrey;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.portfolio {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.project {
+  position: relative;
+  display: inline-block;
+  background: blue;
+  border-radius: 50%;
+  width: 30vmin;
+  height: 30vmin;
+  overflow: hidden;
+  margin: 1rem;
+  transition: 0.2s box-shadow;
+}
+
+.project:hover {
+  box-shadow: 0 0 25px #333;
+}
+
+.project img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 110%;
+  filter: blur(5px);
+}
+
+.project a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transition: 0.2s background;
+}
+
+.project:hover a {
+  background: #333333aa;
+}
+
+.project a h1 {
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  background: #333333aa;
+  text-decoration: none;
+  margin: 0;
+  padding: 0.5rem;
+  transition: 0.2s background;
+}
+
+.project:hover a h1 {
+  background: transparent;
+}
