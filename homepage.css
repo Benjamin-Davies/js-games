@@ -30,6 +30,11 @@ footer {
   left: 0;
   width: 100%;
   z-index: -1;
+  font-size: 1.2rem;
+  background: linear-gradient(transparent, #333);
+  padding: 0.5rem;
+  opacity: calc(1 - 0.02 * var(--distance-to-bottom, 100));
+  transition: 0.2s opacity;
 }
 
 .portfolio {
@@ -47,6 +52,10 @@ footer {
   overflow: hidden;
   margin: 1rem;
   transition: 0.2s box-shadow;
+  transform: translate(
+    calc(-3rem * var(--mouse-x, 0)),
+    calc(-3rem * var(--mouse-y, 0))
+  );
 }
 
 .project:hover {
