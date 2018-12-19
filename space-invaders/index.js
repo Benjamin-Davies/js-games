@@ -23,7 +23,7 @@ export default class Game {
     const loop = () => {
       requestAnimationFrame(loop);
 
-      if (this.playing) this.update();
+      this.update();
       this.draw(ctx);
     };
     requestAnimationFrame(loop);
@@ -54,10 +54,7 @@ export default class Game {
           break;
         case ' ':
           if (state && this.shotCooldown <= 0) {
-            this.lasers.push(
-              new Laser(this.player.x + 50, this.player.y, 0, -5)
-            );
-            this.shotCooldown = 30;
+            this.shoot();
           }
           break;
       }
@@ -67,7 +64,36 @@ export default class Game {
     }
   }
 
+  shoot() {
+    this.lasers.push(
+      new Laser(this.player.x + 50, this.player.y, 0, -5)
+    );
+    this.shotCooldown = 30;
+  }
+
   update() {
+    if ('getGamepads' in navigator) {
+      const gamepads = navigator.getGamepads();
+      if (gamepads.length > 0) {
+        const gamepad = gamepads[0];
+        if (this.playing) {
+          if (gamepad.buttons[0].pressed) {
+            this.shoot();
+          }
+          const value = gamepad.axes[0];
+          this.player.left = value < -0.2;
+          this.player.right = value > 0.2;
+        } else {
+          if (gamepad.buttons[9].pressed) {
+            this.playing = true;
+            this.init();
+          }
+        }
+      }
+    }
+
+    if (!this.playing) return;
+
     if (this.aliens.length === 0)
       for (let x = 0; x < 8; x++)
         for (let y = 0; y < 4; y++)
@@ -124,7 +150,7 @@ export default class Game {
         w / 2,
         h / 2
       );
-      ctx.fillText('Press [enter] to begin', w / 2, h * 2 / 3);
+      ctx.fillText('Press Enter or Start (10) to begin', w / 2, h * 2 / 3);
       return;
     }
 
