@@ -69,7 +69,7 @@ export default class Game {
       this.lasers.push(
         new Laser(this.player.x + 50, this.player.y, 0, -5)
       );
-      this.shotCooldown = 30;
+      this.shotCooldown = 15;
     }
   }
 
