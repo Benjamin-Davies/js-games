@@ -53,7 +53,7 @@ export default class Game {
           this.player.right = state;
           break;
         case ' ':
-          if (state && this.shotCooldown <= 0) {
+          if (state) {
             this.shoot();
           }
           break;
@@ -65,10 +65,12 @@ export default class Game {
   }
 
   shoot() {
-    this.lasers.push(
-      new Laser(this.player.x + 50, this.player.y, 0, -5)
-    );
-    this.shotCooldown = 30;
+    if (this.shotCooldown <= 0) {
+      this.lasers.push(
+        new Laser(this.player.x + 50, this.player.y, 0, -5)
+      );
+      this.shotCooldown = 30;
+    }
   }
 
   update() {
